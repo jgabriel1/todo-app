@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+</head>
+
+<body>
+    <div id="input-field">
+        <input type="text" id="input-task">
+        <button id="submit-task" type="submit">Submit</button>
+    </div>
+    {% if tasks %}
+    <div id="tasks">
+        {% for task in tasks %}
+        <div id="task">
+            <input type="checkbox" name="completed">
+            {{ task }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+
+</html>
