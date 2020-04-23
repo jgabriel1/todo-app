@@ -8,16 +8,18 @@
 </head>
 
 <body>
-    <div id="input-field">
-        <input type="text" id="input-task">
-        <button id="submit-task" type="submit">Submit</button>
-    </div>
-    {% if tasks %}
-    <div id="tasks">
-        {% for task in tasks %}
+    <form action="#" method="post">
+        {{ form.csrf_token }}
+        {{ form.description }}
+        {{ form.submit }}
+    </form>
+
+    {% if tasks_list %}
+    <div id="tasks-list">
+        {% for task in tasks_list %}
         <div id="task">
-            <input type="checkbox" name="completed">
-            {{ task }}
+            <input type="checkbox" name="completed" , value="{{ task.completed }}">
+            {{ task.description }}
         </div>
         {% endfor %}
     </div>
