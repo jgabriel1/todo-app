@@ -13,17 +13,22 @@
         {{ form.description }}
         {{ form.submit }}
     </form>
-
-    {% if tasks_list %}
     <div id="tasks-list">
         {% for task in tasks_list %}
         <div id="task">
-            <input type="checkbox" name="completed" , value="{{ task.completed }}">
-            {{ task.description }}
+            <form action="#" method="post">
+                {{ task.complete_form.completed }}
+                {{ task.description }}
+            </form>
+            <!-- {% if task.completed %}
+            <input type="checkbox" checked name="completed">
+            {% else %}
+            <input type="checkbox" name="completed">
+            {% endif %}
+            {{ task.description }} -->
         </div>
         {% endfor %}
     </div>
-    {% endif %}
 </body>
 
 </html>
