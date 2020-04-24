@@ -16,16 +16,12 @@
     <div id="tasks-list">
         {% for task in tasks_list %}
         <div id="task">
-            <form action="#" method="post">
-                {{ task.complete_form.completed }}
+            <form action="." method="get">
+                {% set i = loop.index - 1 %}
+                {{ tasks_form_list[i].completed }}
                 {{ task.description }}
+                {{ tasks_form_list[i].submit }}
             </form>
-            <!-- {% if task.completed %}
-            <input type="checkbox" checked name="completed">
-            {% else %}
-            <input type="checkbox" name="completed">
-            {% endif %}
-            {{ task.description }} -->
         </div>
         {% endfor %}
     </div>
