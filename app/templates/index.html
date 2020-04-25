@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 
 <body>
@@ -15,19 +16,17 @@
     </form>
 
     <form action="#" method="post">
+        <div id="list-header">
+            <h3>My To-Do List</h3>
+            {{ tasks_form.submit }}
+        </div>
         {% for field in tasks_form %}
         {% set i = loop.index - 1 %}
-
-        {% if field.name != 'submit' %}
-        {{ field }}
-        {% endif %}
-
-        {% if i < tasks_list|length %}
-        {{ tasks_list[i].description }}
-        {% endif %}
-
+        <ul>
+            {% if field.name != 'submit' %} {{ field }} {% endif %}
+            {% if i < tasks_list|length %} {{ tasks_list[i].description }} {% endif %}
+        </ul>
         {% endfor %}
-        {{ tasks_form.submit }}
     </form>
 </body>
 

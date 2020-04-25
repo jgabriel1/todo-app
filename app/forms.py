@@ -1,16 +1,17 @@
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, BooleanField, TextField, FieldList, FormField
 from wtforms.validators import DataRequired
+from wtforms.widgets import ListWidget
 from collections import OrderedDict
 
 
 class TaskForm(FlaskForm):
-    description = TextField(id='new-task', validators=[DataRequired()])
-    submit = SubmitField(id='submit-task', description='Submit')
-
-
-class SingleTask(FlaskForm):
-    completed = BooleanField(id='task-completed')
+    description = TextField(
+        id='new-task',
+        validators=[DataRequired()],
+        render_kw={'placeholder': 'New task...'}
+    )
+    submit = SubmitField(id='submit-task', label='Create')
 
 
 class TaskCompleteForm(FlaskForm):

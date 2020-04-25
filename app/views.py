@@ -7,7 +7,7 @@ from .models import db, Task
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    tasks_list = Task.query.all()
+    tasks_list = sorted(Task.query.all(), key=lambda task: task.id)
     tasks_form = TaskCompleteForm.from_task_list(tasks_list)
 
     if tasks_form.validate_on_submit():
@@ -23,8 +23,13 @@ def index():
                     description=task.description
                 ).first()
 
+                if not task.completed:
+                    model_instance.finished_at = datetime.utcnow()
+                else:
+                    model_instance.finished_at = None
+
                 model_instance.completed = not model_instance.completed
-                model_instance.finished_at = datetime.utcnow()
+                db.session.commit()
 
     form = TaskForm()
 
