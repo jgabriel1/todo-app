@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField, TextField
+from wtforms import SubmitField, BooleanField, TextField, FieldList, FormField
 from wtforms.validators import DataRequired
+from collections import OrderedDict
 
 
 class TaskForm(FlaskForm):
@@ -8,6 +9,29 @@ class TaskForm(FlaskForm):
     submit = SubmitField(id='submit-task', description='Submit')
 
 
-class TaskCompleteForm(FlaskForm):
+class SingleTask(FlaskForm):
     completed = BooleanField(id='task-completed')
-    submit = SubmitField(id='submit-completion', label='not_submit')
+
+
+class TaskCompleteForm(FlaskForm):
+
+    @classmethod
+    def from_task_list(cls, task_list: list):
+        completed = OrderedDict()
+        for i, task in enumerate(task_list):
+            setattr(
+                cls,
+                f'task{i}',
+                BooleanField(id=f'task-completed-{i}')
+            )
+            completed.update({f'task{i}': task.completed})
+
+        setattr(
+            cls,
+            'submit',
+            SubmitField(id='submit-completion', label='Submit Changes')
+        )
+
+        return cls(**completed)
+
+    # https://wtforms.readthedocs.io/en/latest/fields/#wtforms.fields.FieldList

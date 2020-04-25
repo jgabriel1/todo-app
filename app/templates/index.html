@@ -8,23 +8,27 @@
 </head>
 
 <body>
-    <form action="#" method="post">
+    <form action="{{ url_for('new_task') }}" method="post">
         {{ form.csrf_token }}
         {{ form.description }}
         {{ form.submit }}
     </form>
-    <div id="tasks-list">
-        {% for task in tasks_list %}
-        <div id="task">
-            <form action="." method="get">
-                {% set i = loop.index - 1 %}
-                {{ tasks_form_list[i].completed }}
-                {{ task.description }}
-                {{ tasks_form_list[i].submit }}
-            </form>
-        </div>
+
+    <form action="#" method="post">
+        {% for field in tasks_form %}
+        {% set i = loop.index - 1 %}
+
+        {% if field.name != 'submit' %}
+        {{ field }}
+        {% endif %}
+
+        {% if i < tasks_list|length %}
+        {{ tasks_list[i].description }}
+        {% endif %}
+
         {% endfor %}
-    </div>
+        {{ tasks_form.submit }}
+    </form>
 </body>
 
 </html>
