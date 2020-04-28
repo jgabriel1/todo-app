@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -16,18 +17,33 @@
     </form>
 
     <form action="#" method="post">
-        <div id="list-header">
+        <div id="task-list-header">
             <h3>My To-Do List</h3>
             {{ tasks_form.submit }}
         </div>
-        {% for field in tasks_form %}
-        {% set i = loop.index - 1 %}
-        <ul>
-            {% if field.name != 'submit' %} {{ field }} {% endif %}
-            {% if i < tasks_list|length %} {{ tasks_list[i].description }} {% endif %}
+        <ul id="task-list">
+            {% for field in tasks_form -%}
+            {% set i = loop.index - 1 -%}
+            <li>
+                <label>
+                    {% if field.name != 'submit' -%} {{ field }} {%- endif %}
+                    {% if i < tasks_list|length -%} {{ tasks_list[i].description }} {%- endif %}
+                </label>
+            </li>
+            {%- endfor %}
         </ul>
-        {% endfor %}
     </form>
+    <script>
+        $('#task-completed').each(() => {
+            $(this).click(() => {
+                if ($(this).is(':checked')) {
+                    $('label').css('text-decoration', 'none')
+                } else {
+                    $('label').css('text-decoration', 'line-through')
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

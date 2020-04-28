@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, BooleanField, TextField, FieldList, FormField
+from wtforms import SubmitField, BooleanField, TextField
 from wtforms.validators import DataRequired
 from wtforms.widgets import ListWidget
 from collections import OrderedDict
@@ -23,8 +23,9 @@ class TaskCompleteForm(FlaskForm):
             setattr(
                 cls,
                 f'task{i}',
-                BooleanField(id=f'task-completed-{i}')
+                BooleanField(id=f'task-completed')
             )
+
             completed.update({f'task{i}': task.completed})
 
         setattr(
