@@ -23,7 +23,7 @@ class TaskCompleteForm(FlaskForm):
             setattr(
                 cls,
                 f'task{i}',
-                BooleanField(id=f'task-completed')
+                BooleanField(label=task.description, id=f'task-completed{i}')
             )
 
             completed.update({f'task{i}': task.completed})
@@ -31,7 +31,10 @@ class TaskCompleteForm(FlaskForm):
         setattr(
             cls,
             'submit',
-            SubmitField(id='submit-completion', label='Submit Changes')
+            SubmitField(
+                id='submit-completion',
+                render_kw={'value': 'Submit Changes'}
+            )
         )
 
         return cls(**completed)
