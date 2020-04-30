@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
 
 body {
+    font-family: Poppins;
     margin: 20px auto;
-    width: 50%;
-    font: 400 14px Roboto, sans-serif;
-    background: #f0f0ff;
+    width: 66%;
 }
 
 h3 {
@@ -13,7 +12,6 @@ h3 {
 }
 
 #new-task-form {
-    background: #ffffff;
     padding: 10px 10px;
     display: flex;
     justify-content: space-between;
@@ -22,27 +20,29 @@ h3 {
 
 #new-task {
     flex: 1;
-    margin-right: 20px;
-    border-radius: 5px;
-    font-size: 20px;
+    margin-right: 32px;
 }
 
 #task-list-form {
     margin: 22px 0;
-    background: #ffffff;
     border-radius: 10px;
 }
 
 #task-list-header {
-    padding: 10px 10px;
+    padding: 0 10px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
 }
 
+#submit-completion {
+    margin: 10px 0;
+}
+
 #task-list {
     width: 80%;
-    margin: auto;
+    margin: auto 10px;
     padding: 10px 0 20px 0;
     list-style-type: none;
     font-size: 20px;
@@ -58,32 +58,4 @@ input[type=checkbox]+label {
 
 input[type=checkbox]:checked+label {
     text-decoration: line-through;
-}
-
-/* "Bootstrap" button */
-input[type=submit] {
-    box-shadow: inset 0px 1px 0px 0px #ffffff;
-    background: linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
-    background-color: #ededed;
-    border-radius: 6px;
-    border: 1px solid #dcdcdc;
-    display: inline-block;
-    cursor: pointer;
-    color: #777777;
-    font-family: Roboto, sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 6px 24px;
-    text-decoration: none;
-    text-shadow: 0px 1px 0px #ffffff;
-}
-
-input[type=submit]:hover {
-    background: linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
-    background-color: #dfdfdf;
-}
-
-input[type=submit]:active {
-    position: relative;
-    top: 1px;
 }

@@ -9,9 +9,13 @@ class TaskForm(FlaskForm):
     description = TextField(
         id='new-task',
         validators=[DataRequired()],
-        render_kw={'placeholder': 'New task...'}
+        render_kw={'placeholder': 'New task...', 'class_': 'form-control'}
     )
-    submit = SubmitField(id='submit-task', label='Create')
+    submit = SubmitField(
+        id='submit-task',
+        label='Create',
+        render_kw={'class_': 'btn btn-primary'}
+    )
 
 
 class TaskCompleteForm(FlaskForm):
@@ -23,7 +27,11 @@ class TaskCompleteForm(FlaskForm):
             setattr(
                 cls,
                 f'task{i}',
-                BooleanField(label=task.description, id=f'task-completed{i}')
+                BooleanField(
+                    label=task.description,
+                    id=f'task-completed{i}',
+                    render_kw={'class_': 'form-check-input'}
+                )
             )
 
             completed.update({f'task{i}': task.completed})
@@ -33,7 +41,10 @@ class TaskCompleteForm(FlaskForm):
             'submit',
             SubmitField(
                 id='submit-completion',
-                render_kw={'value': 'Submit Changes'}
+                render_kw={
+                    'value': 'Submit Changes',
+                    'class_': 'btn btn-primary'
+                }
             )
         )
 
