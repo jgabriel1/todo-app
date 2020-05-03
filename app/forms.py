@@ -11,42 +11,36 @@ class TaskForm(FlaskForm):
         validators=[DataRequired()],
         render_kw={'placeholder': 'New task...', 'class_': 'form-control'}
     )
+    
     submit = SubmitField(
-        id='submit-task',
         label='Create',
+        id='submit-task',
         render_kw={'class_': 'btn btn-primary'}
     )
 
 
 class TaskCompleteForm(FlaskForm):
+    submit = SubmitField(
+        id='submit-completion',
+        render_kw={
+            'value': 'Submit Changes',
+            'class_': 'btn btn-primary'
+        }
+    )
 
     @classmethod
     def from_task_list(cls, task_list: list):
         completed = OrderedDict()
-        for i, task in enumerate(task_list):
-            setattr(
-                cls,
-                f'task{i}',
-                BooleanField(
-                    label=task.description,
-                    id=f'task-completed{i}',
-                    render_kw={'class_': 'form-check-input'}
-                )
+        for task in task_list:
+            name = f'task{task.id}'
+            field = BooleanField(
+                label=task.description,
+                id=f'task-completed-{task.id}',
+                render_kw={'class_': 'form-check-input task-checkbox'}
             )
 
-            completed.update({f'task{i}': task.completed})
-
-        setattr(
-            cls,
-            'submit',
-            SubmitField(
-                id='submit-completion',
-                render_kw={
-                    'value': 'Submit Changes',
-                    'class_': 'btn btn-primary'
-                }
-            )
-        )
+            setattr(cls, name, field)
+            completed.update({name: task.completed})
 
         return cls(**completed)
 

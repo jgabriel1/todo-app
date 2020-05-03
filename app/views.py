@@ -43,7 +43,7 @@ def index():
 
 @app.route('/new_task', methods=['POST'])
 def new_task():
-    data = request.form['description']
+    data = request.form.get('description')
 
     new_task = Task(
         description=data,
@@ -56,3 +56,12 @@ def new_task():
     db.session.commit()
 
     return redirect('/')
+
+
+@app.route('/delete_task/<id>', methods=['POST'])
+def delete_task(id):
+    """
+    This should just do stuff without really returning anything.
+    
+    """
+    return f"<h2>Delete task {id}!</h2>"
