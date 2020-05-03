@@ -1,21 +1,21 @@
-$(document).ready(() => {
-    $('.task-checkbox').each((i, checkbox) => {
-        $(checkbox).change(() => {
-            console.log(`${checkbox.id}: ${checkbox.checked}`)
-            // Able to access element through ~checkbox~
-        })
-    })
+function deleteTask(e) {
+    const index = this.id.replace('delete', '')
+    const request = {
+        method: 'POST',
+        mode: 'same-origin',
+        body: null
+    }
 
-    $('.delete-button').each((i, del_btn) => {
-        $(del_btn).click((e) => {
-            // Prevent default for now...
-            e.preventDefault() 
-            const id = del_btn.id.replace('delete', '')
-            $.ajax({
-                url: `/delete_task/${id}`,
-                type: 'POST'
-            })
-            // it is posting \o/
-        })
+    fetch(`/delete_task/${index}`, request).then(response => {
+        if (response.ok) {
+            this.parentNode.remove()
+        } else {
+            console.log('Something went wrong!')
+        }
     })
+}
+
+const deleteButtons = document.querySelectorAll('.delete-button')
+deleteButtons.forEach(button => {
+    button.addEventListener('click', deleteTask)
 })

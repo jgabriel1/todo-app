@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, jsonify
 from datetime import datetime
 from . import app
 from .forms import TaskForm, TaskCompleteForm
@@ -60,8 +60,7 @@ def new_task():
 
 @app.route('/delete_task/<id>', methods=['POST'])
 def delete_task(id):
-    """
-    This should just do stuff without really returning anything.
-    
-    """
-    return f"<h2>Delete task {id}!</h2>"
+    to_delete = Task.query.filter_by(id=id).delete()
+    db.session.commit()
+
+    return str(to_delete)
