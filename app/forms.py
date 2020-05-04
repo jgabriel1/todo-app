@@ -11,37 +11,9 @@ class TaskForm(FlaskForm):
         validators=[DataRequired()],
         render_kw={'placeholder': 'New task...', 'class_': 'form-control'}
     )
-    
+
     submit = SubmitField(
         label='Create',
         id='submit-task',
         render_kw={'class_': 'btn btn-primary'}
     )
-
-
-class TaskCompleteForm(FlaskForm):
-    submit = SubmitField(
-        id='submit-completion',
-        render_kw={
-            'value': 'Submit Changes',
-            'class_': 'btn btn-primary'
-        }
-    )
-
-    @classmethod
-    def from_task_list(cls, task_list: list):
-        completed = OrderedDict()
-        for task in task_list:
-            name = f'task{task.id}'
-            field = BooleanField(
-                label=task.description,
-                id=f'task-completed-{task.id}',
-                render_kw={'class_': 'form-check-input task-checkbox'}
-            )
-
-            setattr(cls, name, field)
-            completed.update({name: task.completed})
-
-        return cls(**completed)
-
-    # https://wtforms.readthedocs.io/en/latest/fields/#wtforms.fields.FieldList

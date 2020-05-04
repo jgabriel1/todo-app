@@ -20,23 +20,9 @@
     <form id="task-list-form" action="#" method="post">
         <div id="task-list-header">
             <h3>My To-Do List</h3>
-            {{ tasks_form.submit }}
         </div>
         <ul id="task-list">
-            {% for field in tasks_form -%}
-            <li class="form-check">
-                {% if field.name != 'submit' -%}
-                {{ field }}
-                {% if field.name != 'csrf_token' -%}
-                {{ field.label }}
-                <!-- test ~url_for~ it might do the same thing as all this ajax thing -->
-                <button class="btn btn-primary delete-button" id="{{ field.name | replace('task', 'delete') }}">
-                    Delete
-                </button>
-                {%- endif %}
-                {%- endif %}
-            </li>
-            {%- endfor %}
+
         </ul>
     </form>
     <div id="scripts-container">
@@ -50,7 +36,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
     </div>
 </body>
 
