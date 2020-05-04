@@ -19,8 +19,8 @@ def task_list():
 
 @app.route('/complete_tasks', methods=['post'])
 def complete_tasks():
-    tasks = Task.query.all()
-    results = tasks_schema.load(request.get_json())
+    tasks = Task.query.all()  # from database
+    results = tasks_schema.load(request.get_json())  # from front-end
 
     # Making sure everything aligns to compare:
     assert len(tasks) == len(results)
@@ -39,12 +39,12 @@ def complete_tasks():
             model_instance.completed = not model_instance.completed
             db.session.commit()
 
-    return redirect('/')
+    return redirect('/')  # maybe these will go away
 
 
 @app.route('/new_task', methods=['post'])
 def new_task():
-    data = request.get_json().get('description')
+    data = request.form.get('description')
 
     new_task = Task(
         description=data,
@@ -56,7 +56,7 @@ def new_task():
     db.session.add(new_task)
     db.session.commit()
 
-    return redirect('/')
+    return redirect('/')  # maybe these will go away
 
 
 @app.route('/delete_task/<id>', methods=['post'])
@@ -64,4 +64,4 @@ def delete_task(id):
     to_delete = Task.query.filter_by(id=id).delete()
     db.session.commit()
 
-    return redirect('/')
+    return redirect('/')  # maybe these will go away
