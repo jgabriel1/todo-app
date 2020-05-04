@@ -1,3 +1,5 @@
+import { submitCompletion } from './completeTask.js'
+
 export async function createList() {
     const request = {
         method: 'get',
@@ -22,7 +24,8 @@ function createNodes(list) {
             id: `task-completed-${entry.id}`,
             type: 'checkbox',
             checked: entry.completed,
-            className: 'form-check-input task-checkbox'
+            className: 'form-check-input task-checkbox',
+            onclick: submitCompletion
         })
 
         let taskLabel = document.createElement('label')
