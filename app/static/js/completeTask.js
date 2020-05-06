@@ -1,18 +1,18 @@
-export function submitCompletion() {
+export function sendSubmition() {
+    const content = []
     const checkboxes = document.querySelectorAll('.task-checkbox')
-    const body = []
     checkboxes.forEach(checkbox => {
         let entry = {
             id: Number(checkbox.id.replace('task-completed-', '')),
             description: 'placeholder',
             completed: checkbox.checked
         }
-        body.push(entry)
+        content.push(entry)
     })
 
     const request = {
         method: 'post',
-        body: JSON.stringify(body),
+        body: JSON.stringify(content),
         headers: { 'Content-Type': 'application/json' }
     }
 

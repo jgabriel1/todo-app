@@ -1,39 +1,26 @@
-import { submitCompletion } from './completeTask.js'
-
 export async function createList() {
-    const request = {
-        method: 'get',
-        mode: 'same-origin'
-    }
-
-    await fetch('/task_list', request)
+    await fetch('/task_list')
         .then(response => response.json())
         .then(list => { createNodes(list) })
 }
 
 function createNodes(list) {
     const nodeList = document.querySelector('#task-list')
-    const setAttributes = (elem, attrs) => Object.assign(elem, attrs)
 
     for (let entry of list) {
-        let node = document.createElement('li')
-        node.className = 'form-check'
+        let node = createWithAttributes('li', { className: 'form-check' })
 
-        let checkbox = document.createElement('input')
-        setAttributes(checkbox, {
+        let checkbox = createWithAttributes('input', {
             id: `task-completed-${entry.id}`,
             type: 'checkbox',
             checked: entry.completed,
-            className: 'form-check-input task-checkbox',
-            onclick: submitCompletion
+            className: 'form-check-input task-checkbox'
         })
 
-        let taskLabel = document.createElement('label')
-        taskLabel.innerHTML = entry.description
+        let taskLabel = createWithAttributes('label', { innerHTML: entry.description })
         taskLabel.setAttribute('for', `task-completed-${entry.id}`)
 
-        let deleteButton = document.createElement('button')
-        setAttributes(deleteButton, {
+        let deleteButton = createWithAttributes('button', {
             id: `delete${entry.id}`,
             type: 'button',
             innerHTML: 'Delete',
@@ -47,3 +34,14 @@ function createNodes(list) {
     }
 }
 
+/**
+ * @param {String} tag 
+ * @param {Object} attrs 
+ * @returns {Element}
+ */
+function createWithAttributes(tag, attrs) {
+    const element = document.createElement(tag)
+    Object.assign(element, attrs)
+
+    return element
+}
